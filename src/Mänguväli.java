@@ -4,6 +4,20 @@ public class Mänguväli {
 
     public Mänguväli(int number) {
         switch (number) {
+            case 0:
+                list = new String[][] {
+                        {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
+                        {"1 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"2 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"3 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"4 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"5 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"6 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"7 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"8 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"9 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"10", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+                }; break;
             case 1:
                 list = new String[][]{
                         {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
@@ -17,7 +31,7 @@ public class Mänguväli {
                         {"8 ", "x", "-", "x", "-", "-", "-", "-", "x", "x", "x"},
                         {"9 ", "-", "-", "x", "-", "-", "-", "-", "-", "-", "-"},
                         {"10", "-", "-", "-", "-", "-", "x", "-", "-", "-", "-"}
-                };
+                }; break;
             case 2:
                 list = new String[][]{
                         {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
@@ -31,7 +45,7 @@ public class Mänguväli {
                         {"8 ", "-", "-", "-", "-", "x", "-", "-", "-", "-", "-"},
                         {"9 ", "-", "-", "x", "-", "-", "-", "-", "-", "-", "-"},
                         {"10", "-", "x", "-", "-", "-", "-", "-", "x", "-", "-"}
-                };
+                }; break;
             case 3:
                 list = new String[][]{
                         {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
@@ -45,11 +59,11 @@ public class Mänguväli {
                         {"8 ", "-", "-", "-", "-", "-", "-", "-", "-", "x", "-"},
                         {"9 ", "-", "x", "-", "-", "-", "-", "x", "-", "x", "-"},
                         {"10", "-", "-", "x", "x", "x", "x", "-", "-", "x", "-"}
-                };
+                }; break;
         }
 
-/*
-String[][] tühiList = {
+        /*
+        String[][] tühiList = {
                 {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
                 {"1 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
                 {"2 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
@@ -74,25 +88,18 @@ String[][] tühiList = {
         */
     }
 
-    String[][] list1 = {
-            {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
-            {"1 ", "-", "-", "-", "-", "-", "-", "-", "-", "x", "-"},
-            {"2 ", "-", "-", "-", "-", "-", "-", "-", "-", "x", "-"},
-            {"3 ", "-", "-", "-", "x", "x", "x", "-", "-", "-", "-"},
-            {"4 ", "-", "x", "-", "-", "-", "-", "-", "-", "-", "x"},
-            {"5 ", "-", "-", "-", "-", "-", "-", "x", "x", "-", "-"},
-            {"6 ", "-", "-", "x", "-", "x", "-", "-", "-", "-", "-"},
-            {"7 ", "-", "-", "x", "-", "x", "-", "-", "-", "-", "-"},
-            {"8 ", "x", "-", "x", "-", "-", "-", "-", "x", "x", "x"},
-            {"9 ", "-", "-", "x", "-", "-", "-", "-", "-", "-", "-"},
-            {"10", "-", "-", "-", "-", "-", "x", "-", "-", "-", "-"}
-    };
 
-    public void koordinaadiTeisendus(String koordinaadid) {
-        Character rida = koordinaadid.charAt(1);
+    public int[] koordinaadiTeisendus(String koordinaadid) {
+        int rida = 0;
+        if (koordinaadid.length() == 2) {
+            rida = Character.getNumericValue(koordinaadid.charAt(1));
+        }
+        if (koordinaadid.length() == 3) {
+            rida = 10;
+        }
+
         Character veerg_tähena = koordinaadid.charAt(0);
         int veerg;
-
         switch (veerg_tähena) {
             case 'A': veerg = 1; break;
             case 'B': veerg = 2; break;
@@ -104,10 +111,26 @@ String[][] tühiList = {
             case 'H': veerg = 8; break;
             case 'I': veerg = 9; break;
             case 'J': veerg = 10; break;
+            default: veerg = 0;
+        }
+
+        int[] koordinaadipaar = {veerg, rida};
+        return koordinaadipaar;
+    }
+
+    public void prindiMänguväli(String[][] mänguväli) {
+        for (String[] el : mänguväli) {
+            //System.out.println(Arrays.toString(el));
+            for (String märk : el) {
+                System.out.print(märk + "  ");
+            }
+            System.out.println();
         }
     }
 
-    public void pommita(String koordinaadid) {
-
+    public void pommita(String sisestatudKoordinaadid) {
+        int[] koordinaadid = koordinaadiTeisendus(sisestatudKoordinaadid);
+        list[koordinaadid[1]][koordinaadid[0]] = "o";
+        prindiMänguväli(list);
     }
 }
