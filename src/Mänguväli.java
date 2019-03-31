@@ -5,7 +5,7 @@ public class Mänguväli {
     public Mänguväli(int number) {
         switch (number) {
             case 0:
-                list = new String[][] {
+                list = new String[][]{
                         {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
                         {"1 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
                         {"2 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
@@ -17,7 +17,8 @@ public class Mänguväli {
                         {"8 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
                         {"9 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
                         {"10", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
-                }; break;
+                };
+                break;
             case 1:
                 list = new String[][]{
                         {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
@@ -31,7 +32,8 @@ public class Mänguväli {
                         {"8 ", "x", "-", "x", "-", "-", "-", "-", "x", "x", "x"},
                         {"9 ", "-", "-", "x", "-", "-", "-", "-", "-", "-", "-"},
                         {"10", "-", "-", "-", "-", "-", "x", "-", "-", "-", "-"}
-                }; break;
+                };
+                break;
             case 2:
                 list = new String[][]{
                         {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
@@ -45,7 +47,8 @@ public class Mänguväli {
                         {"8 ", "-", "-", "-", "-", "x", "-", "-", "-", "-", "-"},
                         {"9 ", "-", "-", "x", "-", "-", "-", "-", "-", "-", "-"},
                         {"10", "-", "x", "-", "-", "-", "-", "-", "x", "-", "-"}
-                }; break;
+                };
+                break;
             case 3:
                 list = new String[][]{
                         {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
@@ -59,8 +62,53 @@ public class Mänguväli {
                         {"8 ", "-", "-", "-", "-", "-", "-", "-", "-", "x", "-"},
                         {"9 ", "-", "x", "-", "-", "-", "-", "x", "-", "x", "-"},
                         {"10", "-", "-", "x", "x", "x", "x", "-", "-", "x", "-"}
-                }; break;
+                };
+                break;
         }
+
+
+    }
+
+    public String[][] kasLaevOnMaas(int[] koordinaadid, String[][] mängijaNäeb) {
+        boolean onTerveLaev = false;
+        int[] suurimKoordinaat = koordinaadid.clone();
+        //kontrollib, kas mängija on maha pommitanud terve laeva
+        for (int a = koordinaadid[0] - 1; a < koordinaadid[0] + 2; a++) { //veerg
+            if (a < 1 || a > 10) continue;
+            else
+                for (int b = koordinaadid[1] - 1; b < koordinaadid[1] + 2; b++) { //rida
+                    if (b < 1 || b > 10) continue;
+                    else
+                        if (list[b][a].equals("x") && mängijaNäeb[b][a].equals("x")) {
+                            onTerveLaev = true;
+                            suurimKoordinaat[0] = a;
+                            suurimKoordinaat[1] = b;
+                        }
+                }
+        }
+
+        if (onTerveLaev) { //muudab laeva ümbruse tähistuse "o"-ks
+            for (int i = koordinaadid[0] - 1; i < suurimKoordinaat[0] + 2; i++) { //veerg
+                if (i < 1 || i > 10) continue;
+                else
+                    for (int j = koordinaadid[1] - 1; j < suurimKoordinaat[1] + 2; j++) { //rida
+                        if (j < 1 || j > 10) continue;
+                        else
+                            if (!list[j][i].equals("x")) mängijaNäeb[j][i] = "o";
+                    }
+            }
+        }
+        return mängijaNäeb;
+    }
+
+    public void printimine() {
+        for (String[] el : list) {
+            for (String märk : el) {
+                System.out.print(märk + "  ");
+            }
+            System.out.println();
+        }
+    }
 
         /*
         String[][] tühiList = {
@@ -86,7 +134,7 @@ public class Mänguväli {
         }
 
         */
-    }
+
 
 
     public int[] koordinaadiTeisendus(String koordinaadid) {
