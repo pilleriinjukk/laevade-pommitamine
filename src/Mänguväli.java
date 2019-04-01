@@ -65,77 +65,15 @@ public class Mänguväli {
                 };
                 break;
         }
-
-
     }
 
-    public String[][] kasLaevOnMaas(int[] koordinaadid, String[][] mängijaNäeb) {
-        boolean onTerveLaev = false;
-        int[] suurimKoordinaat = koordinaadid.clone();
-        //kontrollib, kas mängija on maha pommitanud terve laeva
-        for (int a = koordinaadid[0] - 1; a < koordinaadid[0] + 2; a++) { //veerg
-            if (a < 1 || a > 10) continue;
-            else
-                for (int b = koordinaadid[1] - 1; b < koordinaadid[1] + 2; b++) { //rida
-                    if (b < 1 || b > 10) continue;
-                    else
-                        if (list[b][a].equals("x") && mängijaNäeb[b][a].equals("x")) {
-                            onTerveLaev = true;
-                            suurimKoordinaat[0] = a;
-                            suurimKoordinaat[1] = b;
-                        }
-                }
-        }
-
-        if (onTerveLaev) { //muudab laeva ümbruse tähistuse "o"-ks
-            for (int i = koordinaadid[0] - 1; i < suurimKoordinaat[0] + 2; i++) { //veerg
-                if (i < 1 || i > 10) continue;
-                else
-                    for (int j = koordinaadid[1] - 1; j < suurimKoordinaat[1] + 2; j++) { //rida
-                        if (j < 1 || j > 10) continue;
-                        else
-                            if (!list[j][i].equals("x")) mängijaNäeb[j][i] = "o";
-                    }
-            }
-        }
-        return mängijaNäeb;
+    public String[][] getList() {
+        return list;
     }
 
-    public void printimine() {
-        for (String[] el : list) {
-            for (String märk : el) {
-                System.out.print(märk + "  ");
-            }
-            System.out.println();
-        }
+    public void setList(String[][] list) {
+        this.list = list;
     }
-
-        /*
-        String[][] tühiList = {
-                {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
-                {"1 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"2 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"3 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"4 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"5 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"6 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"7 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"8 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"9 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"10", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
-        };
-
-        for (String[] el : list3) {
-            //System.out.println(Arrays.toString(el));
-            for (String märk : el) {
-                System.out.print(märk + "  ");
-            }
-            System.out.println();
-        }
-
-        */
-
-
 
     public int[] koordinaadiTeisendus(String koordinaadid) {
         int rida = 0;
@@ -166,8 +104,8 @@ public class Mänguväli {
         return koordinaadipaar;
     }
 
-    public void prindiMänguväli(String[][] mänguväli) {
-        for (String[] el : mänguväli) {
+    public void prindiMänguväli() {
+        for (String[] el : list) {
             //System.out.println(Arrays.toString(el));
             for (String märk : el) {
                 System.out.print(märk + "  ");
@@ -178,7 +116,53 @@ public class Mänguväli {
 
     public void pommita(String sisestatudKoordinaadid) {
         int[] koordinaadid = koordinaadiTeisendus(sisestatudKoordinaadid);
-        list[koordinaadid[1]][koordinaadid[0]] = "o";
-        prindiMänguväli(list);
+        if (saiPihta(koordinaadid)) list[koordinaadid[1]][koordinaadid[0]] = "x";
+        else list[koordinaadid[1]][koordinaadid[0]] = "o";
+    }
+
+    public boolean saiPihta(int[] koordinaadid) {
+        if (list[koordinaadid[1]][koordinaadid[0]] == "x") return true;
+        return false;
+    }
+
+    public String[][] kasLaevOnMaas(int[] koordinaadid, Mänguväli mängijaMänguväli) {
+        boolean onTerveLaev = false;
+        int[] suurimKoordinaat = koordinaadid.clone();
+        //kontrollib, kas mängija on maha pommitanud terve laeva
+        for (int a = koordinaadid[0] - 1; a < koordinaadid[0] + 2; a++) { //veerg
+            if (a < 1 || a > 10) continue;
+            else
+                for (int b = koordinaadid[1] - 1; b < koordinaadid[1] + 2; b++) { //rida
+                    if (b < 1 || b > 10) continue;
+                    else
+                        if (list[b][a].equals("x") && mängijaMänguväli.getList()[b][a].equals("x")) {
+                            onTerveLaev = true;
+                            suurimKoordinaat[0] = a;
+                            suurimKoordinaat[1] = b;
+                        }
+
+                }
+        }
+
+        if (onTerveLaev) { //muudab laeva ümbruse tähistuse "o"-ks
+            for (int i = koordinaadid[0] - 1; i < suurimKoordinaat[0] + 2; i++) { //veerg
+                if (i < 1 || i > 10) continue;
+                else
+                    for (int j = koordinaadid[1] - 1; j < suurimKoordinaat[1] + 2; j++) { //rida
+                        if (j < 1 || j > 10) continue;
+                        else
+                        if (!list[j][i].equals("x")) mängijaMänguväli.getList()[j][i] = "o";
+                    }
+            }
+        }
+        return mängijaMänguväli.getList();
+    }
+
+    public int mituLaevaruutuOn() {
+        int ruute = 0;
+        for (int i = 1; i < 11; i++)
+            for (int j = 1; j < 11; j++)
+                if (list[i][j] == "x") ruute++;
+        return ruute;
     }
 }

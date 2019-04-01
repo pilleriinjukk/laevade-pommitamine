@@ -17,31 +17,27 @@ public class Test {
         Mänguväli mängija = new Mänguväli(0);
         Mänguväli arvuti = new Mänguväli(1);
 
-        mängija.pommita(sisestatakse);
+        //mängija.pommita(sisestatakse);
 
-        //lisasin oma asjad lihtsalt siia lõppu sest ei jaksa liiga palju mõelda :)
-        Mänguväli mänguväli = new Mänguväli(1);
-        String[][] tühiList = {
-                {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
-                {"1 ", "-", "-", "-", "-", "-", "-", "-", "-", "x", "-"},
-                {"2 ", "-", "-", "-", "-", "-", "-", "-", "-", "x", "-"},
-                {"3 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"4 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"5 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"6 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"7 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"8 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"9 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-                {"10", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
-        };
 
-        String[][] mängijaNäeb = mänguväli.kasLaevOnMaas(new int[]{9, 1}, tühiList);
-
+        //String[][] mängijaNäeb = mänguväli.kasLaevOnMaas(new int[]{9, 1}, mängijaMänguväli);
+/*
         for (String[] el : mängijaNäeb) {
             for (String märk : el) {
                 System.out.print(märk + "  ");
             }
             System.out.println();
+        }*/
+
+        int mängukäik = 1;
+        //while (mängukäik < arvuti.mituLaevaruutuOn())
+        //lisada uue koordinaadi küsimine
+        mängija.prindiMänguväli();
+        int[] koordinaadid = arvuti.koordinaadiTeisendus("A3");
+        arvuti.pommita("A3");
+        if (arvuti.saiPihta(koordinaadid)) {
+            mängija.setList(arvuti.kasLaevOnMaas(koordinaadid, mängija));
+            //ja saab siin uuesti pommitada, lisada teine while tsükkel?
         }
     }
 }
