@@ -1,7 +1,11 @@
 import javax.swing.JOptionPane;
+import java.util.Arrays;
 
 public class Test {
     public static void main(String[] args) {
+
+        Mänguväli mängija = new Mänguväli(0);
+        Mänguväli arvuti = new Mänguväli(4);
 
         JOptionPane.showMessageDialog( null,
                 "Laevade pommitamine \n\n" +
@@ -10,12 +14,26 @@ public class Test {
                         "Mängima asumiseks vajuta OK." );
         //System.exit(0);
 
-        String sisestatakse =
-        JOptionPane.showInputDialog(
-                "Sisesta koordinaat, mida soovid pommitada (näiteks A3).");
 
-        Mänguväli mängija = new Mänguväli(0);
-        Mänguväli arvuti = new Mänguväli(1);
+
+        while (mängija.getLaevaruutudeArv() < arvuti.getLaevaruutudeArv()) {
+            //arvuti.prindiMänguväli(); // selle kommenteerime pärast välja, et mäng põnev oleks :)
+
+            String sisestatakse =
+                    JOptionPane.showInputDialog(
+
+                            // Võiks printida mänguvälja sisestamise aknasse. ********* MÕELDA *********
+
+                            "\nSisesta koordinaat, mida soovid pommitada (näiteks A3).");
+
+            int[] koordinaadid = mängija.koordinaadiTeisendus(sisestatakse.toUpperCase());
+            mängija.pommita(koordinaadid, arvuti);
+            mängija.prindiMänguväli();
+        }
+
+        JOptionPane.showMessageDialog( null,
+                "VÕITSID!!!!!!" );
+        System.exit(0);
 
         //mängija.pommita(sisestatakse);
 
@@ -29,15 +47,19 @@ public class Test {
             System.out.println();
         }*/
 
+/*
         int mängukäik = 1;
         //while (mängukäik < arvuti.mituLaevaruutuOn())
         //lisada uue koordinaadi küsimine
         mängija.prindiMänguväli();
         int[] koordinaadid = arvuti.koordinaadiTeisendus("A3");
         arvuti.pommita("A3");
-        if (arvuti.saiPihta(koordinaadid)) {
+        //if (arvuti.saiPihta(koordinaadid)) {
             mängija.setList(arvuti.kasLaevOnMaas(koordinaadid, mängija));
             //ja saab siin uuesti pommitada, lisada teine while tsükkel?
-        }
+        //}
+*/
+
     }
+
 }
