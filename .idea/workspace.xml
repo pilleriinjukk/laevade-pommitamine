@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73dd8a0c-8f17-4951-abf2-139d8f1c0505" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mänguväli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mänguväli.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
@@ -18,11 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="51">
+              <caret line="3" column="44" lean-forward="true" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -30,12 +26,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Mänguväli.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1738">
-              <caret line="79" column="73" selection-start-line="79" selection-start-column="73" selection-end-line="79" selection-end-column="73" />
+            <state relative-caret-position="1938">
+              <caret line="114" column="5" lean-forward="true" selection-start-line="114" selection-start-column="5" selection-end-line="114" selection-end-column="5" />
               <folding>
                 <element signature="e#5287#5288#0" expanded="true" />
                 <element signature="e#5314#5315#0" expanded="true" />
-                <element signature="e#12911#12912#0" expanded="true" />
+                <element signature="e#5353#5354#0" expanded="true" />
+                <element signature="e#5391#5392#0" expanded="true" />
+                <element signature="e#5435#5436#0" expanded="true" />
+                <element signature="e#5467#5468#0" expanded="true" />
+                <element signature="e#6169#6170#0" expanded="true" />
+                <element signature="e#6208#6209#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -56,8 +57,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Mänguväli.java" />
         <option value="$PROJECT_DIR$/src/Test.java" />
+        <option value="$PROJECT_DIR$/src/Mänguväli.java" />
       </list>
     </option>
   </component>
@@ -74,12 +75,31 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Projekt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Projekt" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Projekt" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Projekt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554211358170" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554320900676" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -129,10 +149,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.44153005" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.21295546" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -141,7 +161,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.21235102" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.13143872" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.053087756" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -188,41 +208,29 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout-to-restore>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Mänguväli.java</url>
-          <line>183</line>
-          <properties class="Mänguväli" method="kasLaevOnMaas3">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/Downloads/Mänguväljad.java" />
     <entry file="file://$PROJECT_DIR$/src/Mänguväli.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1738">
-          <caret line="79" column="73" selection-start-line="79" selection-start-column="73" selection-end-line="79" selection-end-column="73" />
+        <state relative-caret-position="1938">
+          <caret line="114" column="5" lean-forward="true" selection-start-line="114" selection-start-column="5" selection-end-line="114" selection-end-column="5" />
           <folding>
             <element signature="e#5287#5288#0" expanded="true" />
             <element signature="e#5314#5315#0" expanded="true" />
-            <element signature="e#12911#12912#0" expanded="true" />
+            <element signature="e#5353#5354#0" expanded="true" />
+            <element signature="e#5391#5392#0" expanded="true" />
+            <element signature="e#5435#5436#0" expanded="true" />
+            <element signature="e#5467#5468#0" expanded="true" />
+            <element signature="e#6169#6170#0" expanded="true" />
+            <element signature="e#6208#6209#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="51">
+          <caret line="3" column="44" lean-forward="true" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
         </state>
       </provider>
     </entry>
