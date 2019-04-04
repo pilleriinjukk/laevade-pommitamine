@@ -5,6 +5,7 @@ public class Test {
 
         Mänguväli mängija = new Mänguväli(0);
         Mänguväli arvuti = new Mänguväli((int) Math.round(Math.random() * 3 + 1.0));
+        //Mänguväli arvuti = new Mänguväli(5);
 
         JOptionPane.showMessageDialog( null,
                 " --  Laevade pommitamine -- \n\n" +

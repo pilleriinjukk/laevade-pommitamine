@@ -86,6 +86,22 @@ public class Mänguväli {
                 };
 
                 break;
+            case 5: // see siin on testimiseks
+                list = new String[][]{
+                        {"  ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"},
+                        {"1 ", "x", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"2 ", "x", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"3 ", "x", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"4 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"5 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"6 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"7 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"8 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"9 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+                        {"10", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+                };
+
+                break;
         }
         laevaruutudeArv = mituLaevaruutuOn(); // määrab isendivälja laevaruutudeArv väärtuse vastavalt sellele, mitu x-i mänguuväljal on
     }
@@ -184,7 +200,7 @@ public class Mänguväli {
             list[koordinaadid[1]][koordinaadid[0]] = "x"; // muudab mängija listis vastava elemendi pihtasaanuks
             kasLaevOnMaas3(koordinaadid, arvuti, new int[][]{koordinaadid, {}, {}, {}}, 0); // kontrollib, kas laev sai põhja pommitatud
         } else
-            if (list[koordinaadid[1]][koordinaadid[0]] != "x") { // et vältida juba pommitatud ruutude ülepommitamist
+            if (list[koordinaadid[1]][koordinaadid[0]] == "-" || list[koordinaadid[1]][koordinaadid[0]] == "o") { // et vältida juba pommitatud ruutude ülepommitamist
                 list[koordinaadid[1]][koordinaadid[0]] = "o";
             }
     }
@@ -192,7 +208,7 @@ public class Mänguväli {
 
     // kontrollib, kas mängija sai laevale pihta
     public boolean saiPihta(int[] koordinaadid, Mänguväli arvuti) {
-        if (arvuti.getList()[koordinaadid[1]][koordinaadid[0]] == "x" && list[koordinaadid[1]][koordinaadid[0]] != "x") {
+        if (arvuti.getList()[koordinaadid[1]][koordinaadid[0]] == "x" && (list[koordinaadid[1]][koordinaadid[0]] == "-" || list[koordinaadid[1]][koordinaadid[0]] == "o")) {
             muudaLaevaruutudeArvu(1); // suurendab argumendi väärtust ühe võrra
             return true;
         }
