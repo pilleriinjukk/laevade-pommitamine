@@ -1,8 +1,11 @@
 package oop;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
 import javafx.scene.Group;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
@@ -39,7 +42,11 @@ public class Kasutajaliides extends Application {
 
         Group juur = new Group();
         GridPane ruudustik = new GridPane();
-        Scene stseen = new Scene(ruudustik, 550, 550);
+       /* ruudustik.setMinSize(600, 600);
+        ruudustik.setMaxSize(600, 600);*/
+        StackPane interaktiivneRuudustik = new StackPane(ruudustik);
+        Scene stseen = new Scene(interaktiivneRuudustik, 850, 850);
+        peaLava.setHeight(stseen.getHeight());
 
         Mänguväli mängija = new Mänguväli(0);
         Mänguväli arvuti = new Mänguväli((int) Math.round(Math.random() * 3 + 1.0));
@@ -47,7 +54,8 @@ public class Kasutajaliides extends Application {
 
         for (int i = 0; i < mängija.getList().length; i++) {
             for (int j = 0; j < mängija.getList()[i].length; j++) {
-                Rectangle ruut = new Rectangle(50, 50, Color.LIGHTGRAY);
+                //Rectangle ruut = new Rectangle(50, 50, Color.LIGHTGRAY);
+                Rectangle ruut = new Rectangle(stseen.getWidth()/11, stseen.getHeight()/11, Color.LIGHTGRAY);
 
                 if (mängija.getList()[i][j] == "-" || mängija.getList()[i][j] == "x" || mängija.getList()[i][j] == "o") {
                     ruut.setFill(Color.SLATEGREY);
@@ -55,6 +63,7 @@ public class Kasutajaliides extends Application {
 
                 Text tekst = new Text(mängija.getList()[i][j]);
                 StackPane stack = new StackPane();
+
                 stack.getChildren().addAll(ruut, tekst);
 
 
@@ -65,60 +74,21 @@ public class Kasutajaliides extends Application {
             }
         }
 
+        //interaktiivneRuudustik.setAlignment(Pos.TOP_LEFT);
+        //interaktiivneRuudustik.autosize();
+        NumberBinding suurus = Bindings.min(stseen.widthProperty().divide(stseen.getHeight()), stseen.heightProperty().divide(stseen.getWidth()));
+        interaktiivneRuudustik.scaleXProperty().bind(suurus);
+        interaktiivneRuudustik.scaleYProperty().bind(suurus);
+        //interaktiivneRuudustik.setShape(new Shape());
+
+        /*ruudustik.scaleXProperty().setValue(stseen.getHeight());
+        ruudustik.scaleYProperty().setValue(stseen.getWidth());*/
+
         peaLava.setScene(stseen);
-        peaLava.setResizable(false);
+        //peaLava.setResizable(false);
         peaLava.show();
     }
 
-    /**
-     * Teisendab mängulaua x-koordinaadi lõuendi y-koordinaadiks leides antud
-     * mänguvälja keskme y-koordinaadi.
-     *
-     * @param boardY Mänguvälja y-koordinaat [0..2]
-     * @return Lõuendi koordinaat vastavalt kanvase suurusele.
-     */
-    private double boardToCanvasY(int boardY) {
-        return (stseen.getHeight() / 22 * (1 + boardY * 2));
-    }
-
-    /**
-     * Teisendab mängulaua x-koordinaadi lõuendi x-koordinaaiks leides antud
-     * mänguvälja keskme x-koordinaadi.
-     *
-     * @param boardX Mänguvälja x-koordinaat [0..2]
-     * @return Lõuendi koordinaat vastavalt lõuendi suurusele.
-     */
-    private double boardToCanvasX(int boardX) {
-        return stseen.getWidth() / 22 * (1 + boardX * 2);
-    }
-
-    /**
-     * See funktsioon kutsutakse välja, kui kasutaja klikib mängulaual.
-     *
-     * @param clickX Kasutaja klikitud koha x-koordinaat.
-     * @param clickY Kasutaja klikitud koha y-koordinaat.
-     */
-    private void handleClickOnBoard(double clickX, double clickY) {
-        double minDisdance = Double.MAX_VALUE;
-        int nearestBoardX = 0;
-        int nearestBoardY = 0;
-        // Arvutame, millise mänguvälja keskpunktile kõige lähemale klikk tehti.
-        for (int boardX = 0; boardX < 3; boardX++)
-            for (int boardY = 0; boardY < 3; boardY++) {
-                double centerX = boardToCanvasX(boardX);
-                double centerY = boardToCanvasY(boardY);
-                double distance = Math.sqrt(Math.pow(centerX - clickX, 2)
-                        + Math.pow(centerY - clickY, 2));
-
-                if (distance < minDisdance) {
-                    minDisdance = distance;
-                    nearestBoardX = boardX;
-                    nearestBoardY = boardY;
-                }
-            }
-
-        react(nearestBoardX, nearestBoardY);
-    }
 
     public static void main(String[] args) {
         launch(args);
