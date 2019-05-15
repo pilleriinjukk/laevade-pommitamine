@@ -45,8 +45,9 @@ public class Kasutajaliides extends Application {
        /* ruudustik.setMinSize(600, 600);
         ruudustik.setMaxSize(600, 600);*/
         StackPane interaktiivneRuudustik = new StackPane(ruudustik);
-        Scene stseen = new Scene(interaktiivneRuudustik, 850, 850);
-        peaLava.setHeight(stseen.getHeight());
+        Scene stseen = new Scene(interaktiivneRuudustik, 875, 875);
+
+        //peaLava.setHeight(stseen.getHeight());
 
         Mänguväli mängija = new Mänguväli(0);
         Mänguväli arvuti = new Mänguväli((int) Math.round(Math.random() * 3 + 1.0));
@@ -84,6 +85,13 @@ public class Kasutajaliides extends Application {
         /*ruudustik.scaleXProperty().setValue(stseen.getHeight());
         ruudustik.scaleYProperty().setValue(stseen.getWidth());*/
 
+
+        peaLava.minWidthProperty().setValue(480);
+        peaLava.minHeightProperty().setValue(500);
+        peaLava.maxWidthProperty().setValue(895);
+        peaLava.maxHeightProperty().setValue(915);
+        /*peaLava.maxWidthProperty().bind(stseen.widthProperty());
+        peaLava.maxHeightProperty().bind(stseen.heightProperty());*/
         peaLava.setScene(stseen);
         //peaLava.setResizable(false);
         peaLava.show();
