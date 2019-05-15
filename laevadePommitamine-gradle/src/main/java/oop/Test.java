@@ -1,15 +1,16 @@
 package oop;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.io.IOException;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Mänguväli mängija = new Mänguväli(0);
-        Mänguväli arvuti = new Mänguväli((int) Math.round(Math.random() * 3 + 1.0));
-        //Mänguväli arvuti = new Mänguväli(5);
+        // Mänguväli arvuti = new Mänguväli((int) Math.round(Math.random() * 3 + 1.0));
+        Mänguväli arvuti = new Mänguväli(5);
 
-        JOptionPane.showMessageDialog( null,
+        JOptionPane.showMessageDialog(null,
                 " --  Laevade pommitamine -- \n\n" +
                         "Mänguväljal on kokku 10 laeva: \n" +
                         "    pikkusega 4 ruutu  -  1 laev \n" +
@@ -22,7 +23,7 @@ public class Test {
                         "    -   pommitamata ruut \n" +
                         "    o  pommitatud ruut, millel pole laeva \n" +
                         "    x  pommitatud ruut, millel on laev \n\n" +
-                        "Mängima asumiseks vajuta OK." );
+                        "Mängima asumiseks vajuta OK.");
 
         mängija.prindiMänguväli();
 
@@ -37,14 +38,11 @@ public class Test {
 
                     if (märk.equals("-")) {
                         väli += märk + "     ";
-                    }
-                    else if (märk.equals("o") || märk.equals("x")) {
+                    } else if (märk.equals("o") || märk.equals("x")) {
                         väli += märk + "    ";
-                    }
-                    else if (märk.equals("10")){
+                    } else if (märk.equals("10")) {
                         väli += märk + "   ";
-                    }
-                    else väli += märk + "    ";
+                    } else väli += märk + "    ";
                 }
                 väli += "\n";
             }
@@ -56,14 +54,13 @@ public class Test {
             int[] koordinaadid = mängija.koordinaadiTeisendus(sisestatakse.toUpperCase());
             mängija.pommita(koordinaadid, arvuti);
 
-            // mängija.prindiMänguväli(); // testimiseks - prindib välja
+            //mängija.prindiMänguväli(); // testimiseks - prindib välja
             // System.out.println(); // testimiseks - prindib välja
         }
 
         JOptionPane.showMessageDialog(null,
                 "Võitsid mängu! \n\nTäname, et mängisid. ");
         System.exit(0);
-
 
 
         // testimiseks

@@ -1,12 +1,17 @@
 package oop;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class Mänguväli {
 
     private String[][] list; // hoiab mälus mänguvälja listina
     private int laevaruutudeArv = 0; // loendab, mitu ruutu on pihta saadud
-
+    private int tehtudKäigud = 0; // loendab mängija poolt tehtud käike (nii pihta kui mööda pommitamised)
 
     // konstruktor, mis võimaldab vastavalt numbrile valida juhuslikult mänguvälja
     public Mänguväli(int number) {
@@ -102,10 +107,29 @@ public class Mänguväli {
                         {"9 ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
                         {"10", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
                 };
-
                 break;
         }
-        laevaruutudeArv = mituLaevaruutuOn(); // määrab isendivälja laevaruutudeArv väärtuse vastavalt sellele, mitu x-i mänguuväljal on
+        laevaruutudeArv = mituLaevaruutuOn(); // määrab isendivälja laevaruutudeArv väärtuse vastavalt sellele, mitu x-i mänguväljal on
+    }
+
+    // konstruktor, mis võimaldab lugeda mänguvälja failist sisse
+    public Mänguväli(String failinimi) throws IOException {
+        String[][] väli = new String[11][11];
+        try (BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(failinimi), StandardCharsets.UTF_8))) {
+            String rida = bf.readLine();
+            int i = 0;
+            while (rida != null) {
+                String[] jupid = rida.split(",");
+
+                for (int j = 0; j < 11; j++) {
+                    väli[i][j] = jupid[j];
+                }
+                i++;
+                rida = bf.readLine();
+            }
+        }
+        list = väli;
+        laevaruutudeArv = mituLaevaruutuOn();
     }
 
     public String[][] getList() {
@@ -116,22 +140,21 @@ public class Mänguväli {
         return laevaruutudeArv;
     }
 
-    public void setList(String[][] list) {
-        this.list = list;
+    public int getTehtudKäigud() {
+        return tehtudKäigud;
     }
 
     public int mituLaevaruutuOn() { // meetod, mis loendab kõik listis olevad x-sümbolid (st ruudud, kus on laev)
         int ruute = 0;
         for (int i = 1; i < 11; i++)
             for (int j = 1; j < 11; j++)
-                if (list[i][j] == "x") ruute++;
+                if (list[i][j].equals("x")) ruute++;
         return ruute;
     }
 
     public void muudaLaevaruutudeArvu(int arv) { // muudab isendivälja laevaruutudeArv väärtust
         laevaruutudeArv += arv;
     }
-
 
 
     // teisendab "A2" (String) kujul koordinaadid numbrite paariks (int[])
@@ -201,16 +224,17 @@ public class Mänguväli {
         if (saiPihta(koordinaadid, arvuti)) { // kui mängija saab laevale pihta
             list[koordinaadid[1]][koordinaadid[0]] = "x"; // muudab mängija listis vastava elemendi pihtasaanuks
             kasLaevOnMaas3(koordinaadid, arvuti, new int[][]{koordinaadid, {}, {}, {}}, 0); // kontrollib, kas laev sai põhja pommitatud
-        } else
-        if (list[koordinaadid[1]][koordinaadid[0]] == "-" || list[koordinaadid[1]][koordinaadid[0]] == "o") { // et vältida juba pommitatud ruutude ülepommitamist
+        } else if (list[koordinaadid[1]][koordinaadid[0]].equals("-") || list[koordinaadid[1]][koordinaadid[0]].equals("o")) { // et vältida juba pommitatud ruutude ülepommitamist
             list[koordinaadid[1]][koordinaadid[0]] = "o";
         }
+        tehtudKäigud += 1;
     }
 
 
     // kontrollib, kas mängija sai laevale pihta
     public boolean saiPihta(int[] koordinaadid, Mänguväli arvuti) {
-        if (arvuti.getList()[koordinaadid[1]][koordinaadid[0]] == "x" && (list[koordinaadid[1]][koordinaadid[0]] == "-" || list[koordinaadid[1]][koordinaadid[0]] == "o")) {
+        if (arvuti.getList()[koordinaadid[1]][koordinaadid[0]].equals("x") &&
+                (list[koordinaadid[1]][koordinaadid[0]].equals("-") || list[koordinaadid[1]][koordinaadid[0]].equals("o"))) {
             muudaLaevaruutudeArvu(1); // suurendab argumendi väärtust ühe võrra
             return true;
         }
@@ -220,7 +244,7 @@ public class Mänguväli {
 
     // kontrollib, kas tabamusega saadi laev põhja või mitte
     public boolean kasLaevOnMaas3(int[] koordinaadid, Mänguväli arvutiMänguväli, int[][] tabamusteKoordinaadid, int mitmes) {
-        if (Arrays.equals(koordinaadid, new int[] {}) || mitmes >= 3) return true;
+        if (Arrays.equals(koordinaadid, new int[]{}) || mitmes >= 3) return true;
 
         boolean laevOnPõhjas = true;
         for (int veerg = koordinaadid[0] - 1; veerg <= koordinaadid[0] + 1; veerg++) {
@@ -305,89 +329,4 @@ public class Mänguväli {
             }
         }
     }
-
 }
-
-
-
-
-// KATSETUSED (mida võib veel kunagi vaja minna)
-
-    /*public String[][] kasLaevOnMaas1(int[] koordinaadid, Mänguväli mängijaMänguväli) {
-        boolean onTerveLaev = false;
-        int[] suurimKoordinaat = koordinaadid.clone();
-        //kontrollib, kas mängija on maha pommitanud terve laeva
-        for (int a = koordinaadid[0] - 1; a < koordinaadid[0] + 2; a++) { //veerg
-            if (a < 1 || a > 11) continue;
-            else
-                for (int b = koordinaadid[1] - 1; b < koordinaadid[1] + 2; b++) { //rida
-                    if (b < 1 || b > 11) continue;
-                    else
-                        if (list[b][a].equals("x") && mängijaMänguväli.getList()[b][a].equals("x")) {
-                            onTerveLaev = true;
-                            if (suurimKoordinaat[0] < a || suurimKoordinaat[1] < b)
-                            suurimKoordinaat[0] = a;
-                            suurimKoordinaat[1] = b;
-                        }
-                }
-        }
-
-        if (onTerveLaev) { //muudab laeva ümbruse tähistuse "o"-ks
-            for (int i = koordinaadid[0] - 1; i < suurimKoordinaat[0] + 2; i++) { //veerg
-                if (i < 1 || i > 11) continue;
-                else
-                    for (int j = koordinaadid[1] - 1; j < suurimKoordinaat[1] + 2; j++) { //rida
-                        if (j < 1 || j > 11) continue;
-                        else
-                        if (!list[j][i].equals("x")) mängijaMänguväli.getList()[j][i] = "o";
-                    }
-            }
-        }
-        return mängijaMänguväli.getList();
-    }*/
-
-    /*public boolean kasLaevOnMaas2(int[] koordinaadid, Mänguväli arvutiMänguväli, boolean üleval, boolean all, boolean vasakul, boolean paremal, int i) {
-        boolean laevOnMaas = false;
-        int veerg = koordinaadid[0];
-        int rida = koordinaadid[1];
-
-        if (i > 4) return true;
-
-       // if (Integer.parseInt(arvutiMänguväli.getList()[veerg] [rida - 1]) < 0)
-
-
-        if (arvutiMänguväli.getList()[veerg] [rida - 1].equals("x") && (rida > 1))
-            return kasLaevOnMaas2(new int[] {veerg, rida - 1}, arvutiMänguväli, true, false, vasakul, paremal, i + 1);
-
-        if (arvutiMänguväli.getList()[veerg] [rida + 1].equals("x") && (rida < 10))
-            return kasLaevOnMaas2(new int[] {veerg, rida + 1}, arvutiMänguväli, üleval, true, vasakul, paremal, i + 1);
-
-        if (arvutiMänguväli.getList()[veerg - 1] [rida].equals("x") && (veerg > 1))
-            return kasLaevOnMaas2(new int[] {veerg - 1, rida}, arvutiMänguväli, üleval, all, true, paremal, i + 1);
-
-        if (arvutiMänguväli.getList()[veerg + 1] [rida].equals("x") && (veerg < 10))
-            return kasLaevOnMaas2(new int[] {veerg + 1, rida}, arvutiMänguväli, üleval, all, vasakul, true, i + 1);
-        return laevOnMaas;
-    }*/
-
-
-
-// -- meetodi kasOnMaas3() lõpust võetud kõik katsetused:
-
-    /* if (koordinaate == 4) return laevOnPõhjas;
-
-            laevOnPõhjas = laevOnPõhjas && kasLaevOnMaas3(tabamusteKoordinaadid[mitmes + 1], arvutiMänguväli, tabamusteKoordinaadid, mitmes + 1);
-
-        *//*laevOnPõhjas = laevOnPõhjas && kasLaevOnMaas3(tabamusteKoordinaadid[1], arvutiMänguväli, tabamusteKoordinaadid) &&
-                kasLaevOnMaas3(tabamusteKoordinaadid[2], arvutiMänguväli, tabamusteKoordinaadid) &&
-                kasLaevOnMaas3(tabamusteKoordinaadid[3], arvutiMänguväli, tabamusteKoordinaadid);*//*
-
- *//*for (int[] el : tabamusteKoordinaadid) {
-            if (!Arrays.equals(koordinaadid, el) && !Arrays.equals(new int[] {}, el))
-                laevOnPõhjas = kasLaevOnMaas3(el, arvutiMänguväli, tabamusteKoordinaadid);
-        }*//*
-            if (laevOnPõhjas) {
-            //System.out.println("laev on põhjas");
-            pommitaÜmbert(tabamusteKoordinaadid);
-            }
-            return laevOnPõhjas;*/
