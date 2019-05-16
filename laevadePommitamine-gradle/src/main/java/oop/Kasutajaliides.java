@@ -107,9 +107,11 @@ public class Kasutajaliides extends Application {
     public void kirjutaTulemusFaili(Mänguväli mängija) throws IOException {
         String nimi = kasutajanimi;
         int punktid = mängija.getTehtudKäigud();
+        // kirjutab faili "tulemused.txt", aga kui sellist faili ei ole, siis loob selle
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("tulemused.txt", true))) {
             bw.write(nimi + " " + punktid + "\n");
         }
+        //throw new IOException("viga");  // erinditöötluse testimiseks (muidu ei tekkinud erindeid)
     }
 
     // muudab pealava suurust nii, et stseeni kõrgus ja laius oleksid kogu aeg peaaegu võrdsed
@@ -125,8 +127,8 @@ public class Kasutajaliides extends Application {
     public void start(Stage peaLava) throws IOException {
 
         Mänguväli mängija = new Mänguväli("0.txt");
-        Mänguväli arvuti = new Mänguväli(Math.round(Math.random() * 9 + 1.0) + ".txt");
-        //Mänguväli arvuti = new Mänguväli(5); // see on testimiseks
+        //Mänguväli arvuti = new Mänguväli(Math.round(Math.random() * 9 + 1.0) + ".txt");
+        Mänguväli arvuti = new Mänguväli(5); // see on testimiseks
 
         Text algusTekst = new Text("Tere tulemast mängima mängu \"Laevade pommitamine\"! \n\n\n" +
                 "Mänguväljal on kokku 10 laeva: \n" +
@@ -179,20 +181,22 @@ public class Kasutajaliides extends Application {
             värviRuudud(ruudud, mängija);
 
             if (mängija.getLaevaruutudeArv() - arvuti.getLaevaruutudeArv() == 0) { // kui mängija on kõik laevad põhja saanud
-                // tulemus lisatakse tulemusfaili
+                Text tekst;
+
                 try {
-                    kirjutaTulemusFaili(mängija);
+                    kirjutaTulemusFaili(mängija); // tulemus proovitakse lisada tulemusfaili
+                    tekst = new Text("                    Võitsid! \n\n\nAkna sulgemiseks vajuta ENTER.");
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    tekst = new Text("Võitsid mängu, aga sinu tulemust ei õnnestunud kahjuks salvestada. \n\n\n" +
+                            "                       Akna sulgemiseks vajuta ENTER.");
                 }
 
-                // valmistatakse ette ja näidatakse uut akent
-                Text tekst = new Text("                    Võitsid! \n\n\nAkna sulgemiseks vajuta ENTER.");
+                // uus aken valmistatakse ette ja seda näidatakse
                 StackPane stack = new StackPane();
                 stack.getChildren().addAll(tekst);
                 stack.setAlignment(Pos.CENTER);
                 Scene lõppStseen = new Scene(stack);
-                peaLava.setWidth(400);
+                peaLava.setWidth(500);
                 peaLava.setHeight(250);
                 peaLava.setScene(lõppStseen);
                 peaLava.setTitle("Võitsid");
